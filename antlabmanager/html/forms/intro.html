@@ -1,0 +1,76 @@
+
+<div class="row" ng-init="init()">
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+		<form1 class="form-horizontal" role="form">
+			<!-- #section:elements.form -->
+
+			<!-- <th>简介标题</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 简介标题 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入简介标题。" class="col-xs-10 col-sm-5" ng-model='intro.title'/>
+				</div>
+			</div>
+
+			<!-- <th>简介简介</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 简介简介 </label>
+				
+				<div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="简介简介" value="{{intro.intro}}" ng-model="intro.intro" ></textarea>
+				</div>
+
+			</div>
+
+			<!-- <th>简介内容</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 简介内容 </label>
+				
+				<!-- <div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="简介内容" value="{{intro.content}}" ng-model="intro.content" ></textarea>
+				</div> -->
+				<div class="col-sm-5">
+					<div class="widget-box widget-color-green">
+						<div class="widget-header widget-header-small">  </div>
+
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<div class="wysiwyg-editor" id="editor2"></div>
+							</div>
+
+							<div class="widget-toolbox padding-4 clearfix">
+								<div class="btn-group pull-right">
+								<button ng-click="wysclear()" class="btn btn-sm btn-default btn-white btn-round">
+										<i class="ace-icon fa fa-times bigger-125"></i>
+										Clear
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="button" ng-click="submit()">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset" ng-click="goback()">
+						<i class="ace-icon fa fa-arrow-left bigger-110"></i>
+						返回
+					</button>
+				</div>
+			</div>
+		</form1>
+
+		
+	</div><!-- /.col -->
+</div>

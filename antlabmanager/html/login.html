@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>Login Page - AntLab Management</title>
+
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="../assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="../assets/css/font-awesome.css" />
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="../assets/css/ace.css" />
+
+		<link rel="stylesheet" href="../assets/css/ace-rtl.css" />
+		<script type="text/javascript" src="../assets/js/md5.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/angular.min.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/angular-route.min.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/angular-file-upload.min.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/app.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/appService.js"></script>
+		<script type="text/javascript" src="../assets/js/angularjs/appController.js"></script>
+	</head>
+
+	<body class="login-layout blur-login" ng-controller="loginCtrl">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+									<i class="ace-icon fa fa-leaf green"></i>
+									<span class="red">AntLab</span>
+									<span class="white" id="id-text2">Management</span>
+								</h1>
+								<h4 class="blue" id="id-company-text">&copy; 暨南大学</h4>
+							</div>
+
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger" style="margin-bottom: 0px;">
+												<div ng-if="!manager.username.length>0">
+												<i class="ace-icon fa fa-coffee green"></i>
+												输入用户名
+												</div>
+												<div ng-if="manager.username.length>0&&!manager.password.length>0">
+												<i class="ace-icon fa fa-coffee green"></i>
+												输入密码
+												</div>
+												<div ng-if="manager.username.length>0&&manager.password.length>0">
+												<i class="ace-icon fa fa-coffee green"></i>
+												登录
+												</div>
+											</h4>
+											<div class="alert alert-warning" ng-if="msg!=null" ng-click="close()" style="padding-bottom: 1px; padding-top: 1px;">
+												<a href="" class="close">
+													&times;
+												</a>
+												<strong ng-bind="msg"></strong>
+											</div>
+
+											<div class="space-6"></div>
+
+											<form>
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" placeholder="Username" ng-model="manager.username"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Password" ng-model="manager.password"/>
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+													</label>
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<label class="inline">
+															<input type="checkbox" class="ace" ng-model="rem"/>
+															<span class="lbl"> Remember Me</span>
+														</label>
+
+														<button type="button" class="width-35 pull-right btn btn-sm btn-primary" ng-click="login()" ng-disabled="!manager.username>0||!manager.password>0">
+															<i class="ace-icon fa fa-key"></i>
+															<span class="bigger-110">Login</span>
+														</button>
+													</div>
+
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+										</div>	
+									</div>
+								</div>
+							</div>
+							<div class="center">
+								<h5 class="blue" id="id-company-text"></h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='../assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+		</script>
+
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+</html>

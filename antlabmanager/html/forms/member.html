@@ -1,0 +1,154 @@
+
+<div class="row" ng-init="init()">
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+		<form1 class="form-horizontal" role="form">
+			<!-- #section:elements.form -->
+
+			<!-- <th>成员类型</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员类型 </label>
+				
+				<div class="col-sm-9">
+					<select ng-model="member.type" ng-options="memtype.id as memtype.name for memtype in memtypes" class="col-xs-4 col-sm-2" id="form-field-select-1">
+					</select>
+				</div>
+
+			</div>
+
+			<!-- <th>成员名字</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员名字 </label>
+				
+				<div class="col-sm-4">
+					<input type="text" id="form-field-1" placeholder="成员名字" class="col-xs-10 col-sm-5" ng-model='member.name'/>
+				</div>
+
+			</div>
+
+			<!-- <th>成员英文名字</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员英文名字 </label>
+				
+				<div class="col-sm-4">
+					<input type="text" id="form-field-1" placeholder="成员英文名字" class="col-xs-10 col-sm-5" ng-model='member.nameinen'/>
+				</div>
+
+			</div>
+
+			<!-- <th>成员简介</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员简介 </label>
+				
+				<!-- <div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="成员简介" value="{{member.intro}}" ng-model="member.intro" ></textarea>
+				</div> -->
+				<div class="col-sm-5">
+					<div class="widget-box widget-color-green">
+						<div class="widget-header widget-header-small">  </div>
+
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<div class="wysiwyg-editor" id="editor2"></div>
+							</div>
+
+							<div class="widget-toolbox padding-4 clearfix">
+								<div class="btn-group pull-right">
+								<button ng-click="wysclear()" class="btn btn-sm btn-default btn-white btn-round">
+										<i class="ace-icon fa fa-times bigger-125"></i>
+										Clear
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- <th>成员职位</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员职位 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入成员职位。" class="col-xs-10 col-sm-5" ng-model='member.position'/>
+				</div>
+			</div>
+
+			<!-- <th>成员所在大学</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员所在大学 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入成员所在大学。" class="col-xs-10 col-sm-5" ng-model='member.university'/>
+				</div>
+			</div>
+
+			<!-- <th>成员专业院系</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员专业院系 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入成员专业院系。" class="col-xs-10 col-sm-5" ng-model='member.department'/>
+				</div>
+			</div>
+
+			<!-- <th>成员研究方向</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员研究方向 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入成员研究方向。" class="col-xs-10 col-sm-5" ng-model='member.major'/>
+				</div>
+			</div>
+
+			<!-- <th>成员email</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员email </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入成员email。" class="col-xs-10 col-sm-5" ng-model='member.email'/>
+				</div>
+			</div>
+
+
+			<!-- <th>图片</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 成员图片(.jpg/.png) </label>
+				
+				
+				<div class="col-sm-6">
+					<div ng-show="member.coverpic!=undefined&&member.coverpic!=null&&member.coverpic!=''" style="display: inline-block;" data-rel="colorbox">
+						<img width="263" height="263" alt="263x263" ng-src="{{member.coverpic}}" />
+					</div>
+					<div>
+						<form action="." class="dropzone" id="dropzone">
+							<div class="fallback">
+								<input name="file" type="file" />
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="button" ng-click="submit()">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset" ng-click="goback()">
+						<i class="ace-icon fa fa-arrow-left bigger-110"></i>
+						返回
+					</button>
+				</div>
+			</div>
+		</form1>
+
+		
+	</div><!-- /.col -->
+</div>

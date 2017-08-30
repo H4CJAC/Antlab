@@ -1,0 +1,145 @@
+
+<header ng-controller="headerCtrl" ng-init="init()" id="header" class="animate-onscroll" >
+
+	<!-- Main Header -->
+	<div id="main-header">
+
+		<div class="container">
+
+			<div class="row">
+
+
+				<!-- Logo -->
+				<div id="" class="col-lg-6 col-md-6 col-sm-6">
+
+					<a href="index.html"><img src="img/jnlogo.png" style="width: 16%;" alt="Logo"></a>
+
+					<a href="index.html">
+						<label style="font-size: 200%;color: azure;line-height: 110%;vertical-align: bottom;">暨南大学先进网络实验室<br/>Advanced Networking Lab</label>
+					</a>
+
+				</div>
+				<!-- /Logo -->
+				
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- /Main Header -->
+
+
+
+
+
+	<!-- Lower Header -->
+	<div id="lower-header">
+
+		<div class="container">
+
+			<div id="menu-button">
+				<div>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<span>Menu</span>
+			</div>
+
+			<ul id="navigation">
+
+				<!-- Home -->
+				<li ng-class="{'home-button':true,'current-menu-item':cmi==0}">
+
+					<a href="index.html"><i class="icons icon-home"></i></a>
+
+				</li>
+				<!-- /Home -->
+
+				<!-- 简介 -->
+				<li ng-class="{'current-menu-item':cmi==1}">
+
+					<a href="intro.html">简介</a>
+
+				</li>
+				<!-- /简介 -->
+
+				<!-- 实验室成员 -->
+				<li ng-class="{'current-menu-item':cmi==2}">
+
+					<a href="team.html">实验室成员</a>
+
+				</li>
+				<!-- /实验室成员 -->
+
+				<!-- 公告通知 -->
+				<li ng-class="{'current-menu-item':cmi==3}">
+
+					<a href="announce.html">公告通知</a>
+
+				</li>
+				<!-- /公告通知 -->
+
+
+
+				<!-- 研究成果 -->
+				<li ng-class="{'current-menu-item':cmi==4}">
+					<!-- <a href="research.html">研究成果</a> -->
+					<span>研究成果</span>
+					<ul>
+						<li><a href="paper.html">论文</a></li>
+						<li ng-repeat="research in researchs"><a href="research.html?id={{research.id}}" ng-bind="research.name"></a></li>
+					</ul>
+				</li>
+				<!-- /研究成果 -->
+
+
+
+				<!-- 活动信息 -->
+				<li ng-class="{'current-menu-item':cmi==5}">
+
+					<a href="activity.html">活动信息</a>
+
+				</li>
+				<!-- /活动信息 -->
+
+
+
+				<!-- 学生园地 -->
+				<li ng-class="{'current-menu-item':cmi==6}">
+					<span>学生园地</span>
+					<ul>
+						<li><a href="stu.html">学生登记</a></li>
+						<li><a href="stuFile.html">文件上传</a></li>
+					</ul>
+				</li>
+				<!-- /学生园地 -->
+
+
+				<!-- Login -->
+				<!-- <li class="login-button ">
+					<a href="#">Login</a>
+				</li> -->
+				<!-- /Login -->
+				<!-- Register -->
+				<!-- <li class="register-button ">
+					<a href="#">Register</a>
+				</li> -->
+				<!-- /Register -->
+
+			</ul>
+
+		</div>
+
+	</div>
+	<!-- /Lower Header -->
+
+
+
+</header>
+
+
+
+
+<!-- /Header

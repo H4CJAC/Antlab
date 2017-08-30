@@ -1,0 +1,106 @@
+
+<div class="row" ng-init="init()">
+    <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <form1 class="form-horizontal" role="form">
+            <!-- #section:elements.form -->
+
+            <!-- <th>论文是否展示</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文是否展示 </label>
+                
+                <div class="col-sm-9">
+                    <select ng-model="paper.isshow" class="col-xs-4 col-sm-2" id="form-field-select-1">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- <th>论文发布日期</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文发布日期 </label>
+                
+                <div class="col-sm-4">
+                    <input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='paper.pubtime'/>
+                </div>
+
+            </div>
+
+            <!-- <th>论文发布者</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文发布者 </label>
+                
+                <div class="col-sm-4">
+                    <input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='paper.pubby'/>
+                </div>
+
+            </div>
+
+            <!-- <th>论文浏览量</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文浏览量 </label>
+                
+                <div class="col-sm-4">
+                    <input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='paper.view'/>
+                </div>
+
+            </div>
+
+            <!-- <th>论文类型</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文类型 </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" placeholder="请输入论文类型。" class="col-xs-10 col-sm-5" ng-model='paper.name'/>
+                </div>
+            </div>
+
+            <!-- <th>论文内容</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 论文内容 </label>
+
+                <div class="col-sm-5">
+                    <div class="widget-box widget-color-green">
+                        <div class="widget-header widget-header-small">  </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main no-padding">
+                                <div class="wysiwyg-editor" id="editor2"></div>
+                            </div>
+
+                            <div class="widget-toolbox padding-4 clearfix">
+                                <div class="btn-group pull-right">
+                                <button ng-click="wysclear()" class="btn btn-sm btn-default btn-white btn-round">
+                                        <i class="ace-icon fa fa-times bigger-125"></i>
+                                        Clear
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="button" ng-click="submit()">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset" ng-click="goback()">
+                        <i class="ace-icon fa fa-arrow-left bigger-110"></i>
+                        返回
+                    </button>
+                </div>
+            </div>
+        </form1>
+
+        
+    </div><!-- /.col -->
+</div>

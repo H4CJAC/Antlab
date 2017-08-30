@@ -1,0 +1,127 @@
+
+<div class="row" ng-init="init()">
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+		<form1 class="form-horizontal" role="form">
+			<!-- #section:elements.form -->
+
+			<!-- <th>通知发布日期</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知发布日期 </label>
+				
+				<div class="col-sm-4">
+					<input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='anno.pubtime'/>
+				</div>
+
+			</div>
+
+			<!-- <th>通知发布者</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知发布者 </label>
+				
+				<div class="col-sm-4">
+					<input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='anno.pubby'/>
+				</div>
+
+			</div>
+
+			<!-- <th>通知浏览量</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知浏览量 </label>
+				
+				<div class="col-sm-4">
+					<input disabled="true" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" ng-model='anno.view'/>
+				</div>
+
+			</div>
+
+			<!-- <th>通知标题</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知标题 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入通知标题。" class="col-xs-10 col-sm-5" ng-model='anno.title'/>
+				</div>
+			</div>
+
+			<!-- <th>通知简介</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知简介 </label>
+				
+				<div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="通知简介" value="{{anno.intro}}" ng-model="anno.intro" ></textarea>
+				</div>
+
+			</div>
+
+			<!-- <th>通知内容</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知内容 </label>
+				
+				<!-- <div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="通知内容" value="{{anno.content}}" ng-model="anno.content" ></textarea>
+				</div> -->
+				<div class="col-sm-5">
+					<div class="widget-box widget-color-green">
+						<div class="widget-header widget-header-small">  </div>
+
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<div class="wysiwyg-editor" id="editor2"></div>
+							</div>
+
+							<div class="widget-toolbox padding-4 clearfix">
+								<div class="btn-group pull-right">
+								<button ng-click="wysclear()" class="btn btn-sm btn-default btn-white btn-round">
+										<i class="ace-icon fa fa-times bigger-125"></i>
+										Clear
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- <th>图片</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 通知图片(.jpg/.png) </label>
+				
+				
+				<div class="col-sm-6">
+					<div style="display: inline-block;" ng-repeat="pic in pics" data-rel="colorbox">
+						<a ng-click="delf(pic.id)" style="cursor: pointer;"><i style="left: 100%;" class="ace-icon glyphicon glyphicon-remove"></i></a>
+						<img width="228" height="100" alt="228x100" ng-src="{{pic.url}}" />
+					</div>
+					<div>
+						<form action="." class="dropzone" id="dropzone">
+							<div class="fallback">
+								<input name="file" type="file" multiple="" />
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="button" ng-click="submit()">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset" ng-click="goback()">
+						<i class="ace-icon fa fa-arrow-left bigger-110"></i>
+						返回
+					</button>
+				</div>
+			</div>
+		</form1>
+
+		
+	</div><!-- /.col -->
+</div>

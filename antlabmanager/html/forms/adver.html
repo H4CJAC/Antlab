@@ -1,0 +1,94 @@
+
+<div class="row" ng-init="init()">
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+		<form class="form-horizontal" role="form">
+			<!-- #section:elements.form -->
+
+			<!-- <th>广告标题</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 广告标题 </label>
+
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入广告标题。" class="col-xs-10 col-sm-5" ng-model='adver.title'/>
+				</div>
+			</div>
+
+			<!-- <th>广告链接</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 广告链接 </label>
+				
+				<div class="col-sm-5">
+					<textarea class="form-control" id="form-field-8" placeholder="广告链接" value="{{adver.url}}" ng-model="adver.url" ></textarea>
+				</div>
+
+			</div>
+
+			<!-- <th>广告位置</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 广告位置 </label>
+				
+				<div class="col-sm-9">
+					<select ng-model="adver.position" class="col-xs-4 col-sm-2" id="form-field-select-1">
+						<option value="0">不展示</option>
+						<option value="1">主页底部</option>
+						<option value="2">个人主页简介底部</option>
+						<option value="3">个人管理页底部</option>
+						<option value="4">选手信息中间插播</option>
+					</select>
+				</div>
+
+			</div>
+
+			<!-- <th>广告优先级</th> -->
+			<div ng-if="adver.position==4" class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 广告优先级（越大越前） </label>
+				
+				<div class="col-sm-9">
+					<input type="text" id="form-field-1" placeholder="请输入广告优先级。" class="col-xs-10 col-sm-5" ng-model='adver.position2'/>
+				</div>
+
+			</div>
+
+			<!-- <th>图片</th> -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 广告图片(.jpg/.png) </label>
+				
+				
+				<div class="col-sm-6">
+					<label class="ace-file-input ace-file-multiple col-sm-12">
+						<span class="ace-file-container hide-placeholder selected">
+							<span class="ace-file-name">
+								<img class="img-thumbnail" ng-src="{{adver.pic}}" />
+								<i class=" ace-icon fa fa-picture-o file-image"></i>
+							</span>
+						</span>
+					</label>	
+					<div class="form-group">
+						<div class="col-xs-12">
+							<input multiple="" name="uppic" type="file" id="id-input-file-3" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="button" ng-click="submit()">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset" ng-click="goback()">
+						<i class="ace-icon fa fa-arrow-left bigger-110"></i>
+						返回
+					</button>
+				</div>
+			</div>
+		</form>
+
+		
+	</div><!-- /.col -->
+</div>
