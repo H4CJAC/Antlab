@@ -33,7 +33,8 @@ class ResearchController extends Controller
                     'list*' => ['get'],
                     'man-list'=>['get'],
                     'detail'=>['get'],
-                    'man-detail'=>['get']
+                    'man-detail'=>['get'],
+                    'view'=>['get']
                 ],
             ],
         ];
@@ -46,6 +47,30 @@ class ResearchController extends Controller
     {
         return [
         ];
+    }
+
+    /**
+     * View 浏览量
+     * @param $id
+     * @return []
+     */
+    public function actionView($id){
+        $cache=Yii::$app->cache;
+        $k="res_".$id;
+        $v=$cache->get($k);
+        if($v>5){
+            $research=Research::find()->where(['id'=>$id])->one();
+            if($research!=null){
+                $research->view+=$v;
+                $research->update();
+            }
+            $cache->set($k,1);
+        }else {
+            if(!$v)$v=1;
+            else $v++;
+            $cache->set($k,$v);
+        }
+        return "";
     }
 
     /**

@@ -54,7 +54,7 @@ app.controller("formIntroCtrl",['FileUploader','RQ','$scope','$routeParams',func
 
 
     $scope.goback=function(){
-        window.location="#/tableIntros";
+        window.location="#/";
     }
 
     $scope.wysclear=function(){

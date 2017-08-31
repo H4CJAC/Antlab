@@ -51,14 +51,11 @@ class StudentController extends Controller
      * 
      */
     public function actionTest(){
-        $xlsN=dirname(__DIR__)."/excels/stu.csv";
         $response=Yii::$app->response;
         $response->format=\yii\web\Response::FORMAT_JSON;
         $msg=new DTO();
-        $stu=new Student();
-        $stu->id="'1234";
-        $stu->name="stu2";
-        $res=$this->insert($stu,$xlsN,null);
+        $cache=Yii::$app->cache;
+        $res=$cache->add("new124",3,10);
         $msg->data=['res'=>$res];
         return ['msg'=>$msg];
     }
@@ -75,14 +72,14 @@ class StudentController extends Controller
         $response->format=\yii\web\Response::FORMAT_JSON;
         $s=($pageNo-1)*$pageSize+1;
         $e=$s+$pageSize-1;
-        $stuArr=$this->listObj($xlsN,$s,$e,new StuFile());
-        $totalCount=$stuArr[0];
-        foreach($stuArr[1] as $key=>$val){
-            $stuArr[1][$key]->id=substr($stuArr[1][$key]->id, 1);
-            $stuArr[1][$key]->remark=substr($stuArr[1][$key]->remark, 1);
+        $stuFileArr=$this->listObj($xlsN,$s,$e,"app\models\StuFile");
+        $totalCount=$stuFileArr[0];
+        foreach($stuFileArr[1] as $key=>$val){
+            $stuFileArr[1][$key]->id=substr($stuFileArr[1][$key]->id, 1);
+            $stuFileArr[1][$key]->remark=substr($stuFileArr[1][$key]->remark, 1);
         }
         $msg=new DTO();
-        $msg->data=['stus'=>$stuArr[1],'pageNo'=>$pageNo,'pageSize'=>$pageSize,'totalCount'=>$totalCount];
+        $msg->data=['stuFiles'=>$stuFileArr[1],'pageNo'=>$pageNo,'pageSize'=>$pageSize,'totalCount'=>$totalCount];
         return ['msg'=>$msg];
     }
 
@@ -98,7 +95,7 @@ class StudentController extends Controller
         $response->format=\yii\web\Response::FORMAT_JSON;
         $s=($pageNo-1)*$pageSize+1;
         $e=$s+$pageSize-1;
-        $stuArr=$this->listObj($xlsN,$s,$e,new Student());
+        $stuArr=$this->listObj($xlsN,$s,$e,"app\models\Student");
         $totalCount=$stuArr[0];
         foreach($stuArr[1] as $key=>$val){
             $stuArr[1][$key]->id=substr($stuArr[1][$key]->id, 1);
@@ -166,7 +163,8 @@ class StudentController extends Controller
                 $sf=new StuFile();
                 $sf->id="'".$sid;
                 $sf->remark="'".$remark;
-                $sf->fpath=Yii::$app->params["host"].$value;
+                // $sf->fpath=Yii::$app->params["host"].$value;
+                $sf->fpath=$value;
                 $ofp=$this->insert($sf,$xlsN,function($xlsS,$rtw){
                     $cidx=0;$type=new StuFile();
                     foreach($type as $k=>$v){
@@ -177,8 +175,9 @@ class StudentController extends Controller
                 });
                 if($ofp!=null){
                     try {
-                        $tp=str_replace(Yii::$app->params["host"], "", $ofp);
-                        unlink(dirname(__DIR__).$tp);
+                        // $tp=str_replace(Yii::$app->params["host"], "", $ofp);
+                        // unlink(dirname(__DIR__).$tp);
+                        unlink(dirname(__DIR__).'/stuUploads/'.$ofp);
                     } catch (Exception $e) {
                     }
                 }
@@ -190,7 +189,7 @@ class StudentController extends Controller
         return ['msg'=>$msg];
     }
 
-    private function listObj($xlsN,$s,$e,$type){
+    private function listObj($xlsN,$s,$e,$typeName){
         if(!file_exists($xlsN))return [0,[]];
         $xlsR=new \PHPExcel_Reader_CSV();
         $xls=$xlsR->setDelimiter(',')
@@ -201,11 +200,12 @@ class StudentController extends Controller
         if($s>$hr)return [$hr,[]];
         if($e>$hr)$e=$hr;
         $colidx=ord('A');
+        $type=new $typeName();
         foreach($type as $key) $colidx++;
         $resarr=$xlsS->rangeToArray("A".$s.":".chr($colidx).$e,null,true,true,false);
         $res=array();
         foreach($resarr as $key=>$val){
-            $res[$key]=new Student();
+            $res[$key]=new $typeName();
             $idx=0;
             foreach($res[$key] as $k=>$v)$res[$key][$k]=$val[$idx++];
         }
@@ -247,7 +247,6 @@ class StudentController extends Controller
         $xlsS->setCellValue("A".($hr+2),'=MATCH("'.$obj->id.'",A2:A'.$hr.',0)');
         $rtw=$xlsS->getCell("A".($hr+2))->getCalculatedValue();
         $xlsS->removeRow($hr+2);
-        $res=$rtw;//=======
         if(!is_numeric($rtw))$rtw=$hr+1;
         else{
             $rtw++;

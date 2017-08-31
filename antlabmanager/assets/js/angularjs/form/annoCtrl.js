@@ -89,7 +89,7 @@ app.controller("formAnnoCtrl",['FileUploader','RQ','$scope','$routeParams',funct
     }
 
     var addInit=function(){    
-         
+        $scope.anno={};
     }
 
 	var updateInit = function() {

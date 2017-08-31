@@ -259,6 +259,13 @@ app.controller("announceCtrl", ['$scope', 'RQ', function($scope, RQ) {
 app.controller("annocontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=3;
 
+	var addView=function(id){
+		RQ.get(RQ.host+"anno/view",{
+			id:id
+		},function(res){
+		});
+	}
+
 	var getDetail=function(){
 		RQ.get(RQ.host+"anno/detail",{
 			id:RQ.getUrlParam("id")
@@ -270,6 +277,7 @@ app.controller("annocontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 				dt.setTime(Date.parse($scope.anno.pubtime));
 				$scope.anno.month=monthToEN(dt.getMonth()+1);
 				$scope.anno.date=dt.getDate();
+				addView($scope.anno.id);
 			}else{
 				alert(res.info);
 			}
@@ -300,6 +308,13 @@ app.controller("annocontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 app.controller("researchCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=4;
 
+	var addView=function(id){
+		RQ.get(RQ.host+"research/view",{
+			id:id
+		},function(res){
+		});
+	}
+
 	var getDetail=function(){
 		RQ.get(RQ.host+"research/detail",{
 			id:RQ.getUrlParam("id")
@@ -311,6 +326,7 @@ app.controller("researchCtrl", ['$scope', 'RQ', function($scope, RQ) {
 				dt.setTime(Date.parse($scope.research.pubtime));
 				$scope.research.month=monthToEN(dt.getMonth()+1);
 				$scope.research.date=dt.getDate();
+				addView($scope.research.id);
 			}else{
 				alert(res.info);
 			}
@@ -324,6 +340,13 @@ app.controller("researchCtrl", ['$scope', 'RQ', function($scope, RQ) {
 
 app.controller("paperCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=4;
+
+	var addView=function(id){
+		RQ.get(RQ.host+"paper/view",{
+			id:id
+		},function(res){
+		});
+	}
 
 	$scope.getDetail=function(id){
 		if(id<1){
@@ -341,6 +364,7 @@ app.controller("paperCtrl", ['$scope', 'RQ', function($scope, RQ) {
 				dt.setTime(Date.parse($scope.paper.pubtime));
 				$scope.paper.month=monthToEN(dt.getMonth()+1);
 				$scope.paper.date=dt.getDate();
+				addView($scope.paper.id);
 			}else{
 				alert(res.info);
 			}
@@ -427,6 +451,13 @@ app.controller("activityCtrl", ['$scope', 'RQ', function($scope, RQ) {
 app.controller("actcontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=5;
 
+	var addView=function(id){
+		RQ.get(RQ.host+"activity/view",{
+			id:id
+		},function(res){
+		});
+	}
+
 	var getDetail=function(){
 		RQ.get(RQ.host+"activity/detail",{
 			id:RQ.getUrlParam("id")
@@ -438,6 +469,7 @@ app.controller("actcontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 				dt.setTime(Date.parse($scope.act.pubtime));
 				$scope.act.month=monthToEN(dt.getMonth()+1);
 				$scope.act.date=dt.getDate();
+				addView($scope.act.id);
 			}else{
 				alert(res.info);
 			}
@@ -534,6 +566,91 @@ app.controller("stuCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	}
 }]);
 
+app.controller("stuFileCtrl", ['$scope', 'RQ', function($scope, RQ) {
+	$scope.cmi=6;
+
+	$scope.pageNo=1;
+	$scope.pageSize=15;
+	$scope.totalCount=0;
+	$scope.btns=[];
+	$scope.btnmaxnum=10;
+
+	$scope.jumpto=function(pn){
+		if (pn!=$scope.pageNo) {
+			$scope.pageNo=pn;
+			getList();
+		}
+	}
+
+	$scope.front=function(){
+		if ($scope.pageNo>1) {
+			$scope.jumpto($scope.pageNo-1);
+		}
+	}
+
+	$scope.back=function(){
+		if ($scope.pageNo<$scope.btns.length) {
+			$scope.jumpto($scope.pageNo+1);
+		}
+	}
+
+	var getList=function(){
+		$scope.adding=60;
+		RQ.get(RQ.host+"student/file-list",{
+			pageNo:$scope.pageNo,
+			pageSize:$scope.pageSize
+		},function(res){
+			res=res.msg;
+			if (res.code==0) {
+				$scope.adding=100;
+				$scope.stuFiles=res.data.stuFiles;
+				$scope.totalCount=res.data.totalCount;
+				$scope.btns=getBtnArr($scope.totalCount,$scope.btnmaxnum,$scope.pageNo,$scope.pageSize);
+				$scope.adding=0;
+			}else{
+				alert(res.info);
+			}
+		});
+	}
+
+	$scope.addStuFile=function(){
+		if(!$scope.sid>0){
+			alert("学号不可为空！");
+			return false;
+		}
+		$scope.adding=20;
+
+        var files=$("#inputfile")[0].files;
+        if(files!=undefined&&files.length>0){
+        	var fd=new FormData();
+        	fd.append("StuUploadForm[upFiles][]",files[0]);
+        	RQ.uploadfileWithParams(RQ.host+"student/upload",fd,{
+        		"sid":$scope.sid,
+        		"remark":$scope.remark
+        	},function(res){
+				res=res.msg;
+				if (res.code==0) {
+					$scope.adding=60;
+					getList();
+					alert("上传成功！");
+				}else{
+					alert(res.info);
+					$scope.adding=0;
+				}
+			});
+        }else{
+        	alert("文件不可为空！");
+        	$scope.adding=0;
+        }
+		
+	}
+
+	$scope.init=function(){
+		$scope.adding=0;
+		$scope.stu={};
+		getList();
+	}
+}]);
 
 var initMemPic=function(){
 	var mpics=$(".mempic");

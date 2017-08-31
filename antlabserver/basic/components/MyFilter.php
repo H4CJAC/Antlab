@@ -5,6 +5,8 @@ namespace app\components;
 use Yii;
 use yii\base\ActionFilter;
 use app\models\Manager;
+use app\controllers\SiteController;
+use app\models\DTO;
 
 class MyFilter extends ActionFilter
 {
@@ -16,7 +18,34 @@ class MyFilter extends ActionFilter
             return false;
         }
         $manager=Manager::find()->where(['token'=>$token])->one();
-        return ($manager!=null)&&parent::beforeAction($action);
+
+        return ($manager!=null)&&$this->veriPriv($action,$manager->pvlg)&&parent::beforeAction($action);
+    }
+
+    private function veriPriv($action,$pvlg){
+        switch ($action->id) {
+            case 'man-upd':
+            case 'man-top':
+            case 'man-top-c':
+                if($pvlg>0)return true;
+                break;
+            case 'man-add':
+                if($pvlg>1)return true;
+                break;
+            case 'man-del':
+                if($pvlg>2)return true;
+                break;
+            default:
+                if($pvlg>-1)return true;
+                break;
+        }
+        $response=Yii::$app->response;
+        $response->format=\yii\web\Response::FORMAT_JSON;
+        $msg=new DTO();
+        $msg->code=-10;
+        $msg->info="权限不足！";
+        $response->data=['msg'=>$msg];
+        return false;
     }
 
     public function afterAction($action, $result)

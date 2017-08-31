@@ -89,7 +89,7 @@ app.controller("formActivityCtrl",['FileUploader','RQ','$scope','$routeParams',f
     }
 
     var addInit=function(){    
-         
+         $scope.activity={};
     }
 
 	var updateInit = function() {

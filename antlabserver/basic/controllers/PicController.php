@@ -7,7 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\DTO;
 use app\models\Pic;
-use app\components\MyFilter;
+use app\components\MyPicFilter;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
 
@@ -23,7 +23,7 @@ class PicController extends Controller
     {
         return [
             'access' => [
-                'class' => MyFilter::className(),
+                'class' => MyPicFilter::className(),
                 'only'=>['man*']
             ],
             'verbs' => [

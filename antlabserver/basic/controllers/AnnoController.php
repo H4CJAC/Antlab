@@ -32,7 +32,8 @@ class AnnoController extends Controller
                     'list' => ['get'],
                     'man-list'=>['get'],
                     'detail'=>['get'],
-                    'man-detail'=>['get']
+                    'man-detail'=>['get'],
+                    'view'=>['get']
                 ],
             ],
         ];
@@ -45,6 +46,30 @@ class AnnoController extends Controller
     {
         return [
         ];
+    }
+
+    /**
+     * View 浏览量
+     * @param $id
+     * @return []
+     */
+    public function actionView($id){
+        $cache=Yii::$app->cache;
+        $k="anno_".$id;
+        $v=$cache->get($k);
+        if($v>5){
+            $anno=Announcement::find()->where(['id'=>$id])->one();
+            if($anno!=null){
+                $anno->view+=$v;
+                $anno->update();
+            }
+            $cache->set($k,1);
+        }else {
+            if(!$v)$v=1;
+            else $v++;
+            $cache->set($k,$v);
+        }
+        return "";
     }
 
     /**
@@ -176,7 +201,7 @@ class AnnoController extends Controller
         $response->format=\yii\web\Response::FORMAT_JSON;
         $msg=new DTO();
 
-        $annos=Announcement::find()->where(["and",['like','title',$title],['like','intro',$intro]])->orderBy(['id'=>SORT_DESC])->limit($pageSize)->offset(($pageNo-1)*$pageSize)->all();
+        $annos=Announcement::find()->where(["and",['like','title',$title],['like','intro',$intro]])->orderBy(['top'=>SORT_DESC,'id'=>SORT_DESC])->limit($pageSize)->offset(($pageNo-1)*$pageSize)->all();
         $totalCount=Announcement::find()->where(["and",['like','title',$title],['like','intro',$intro]])->count();
         $msg->data=['annos'=>$annos,'pageNo'=>$pageNo,'pageSize'=>$pageSize,'totalCount'=>$totalCount];
         return ['msg'=>$msg];

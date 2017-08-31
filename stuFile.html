@@ -112,8 +112,8 @@
             </script>
 
         </head>
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!here -->
-        <body ng-init="init()" ng-app="app" ng-controller="stuCtrl" class="sticky-header-on tablet-sticky-header">
+
+        <body ng-init="init()" ng-app="app" ng-controller="stuFileCtrl" class="sticky-header-on tablet-sticky-header">
 
             <div id="fb-root"></div>    
             <!-- Container -->
@@ -135,8 +135,8 @@
                     <!-- Page Heading -->
                     <section class="section page-heading animate-onscroll">
                         
-                        <h1>学生登记</h1>
-                        <p class="breadcrumb"><a href="index.html">Home</a> / 学生登记</p>
+                        <h1>文件上传</h1>
+                        <p class="breadcrumb"><a href="index.html">Home</a> / 文件上传</p>
                         
                     </section>
                     <!-- Page Heading -->
@@ -154,17 +154,17 @@
                                 <form role="form">
                                     <div class="form-group">
                                         <label for="id">学号</label>
-                                        <input type="text" class="form-control" ng-model="stu.id" id="id" placeholder="请输入学号">
+                                        <input type="text" class="form-control" ng-model="sid" id="id" placeholder="请输入学号">
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">名称</label>
-                                        <input type="text" class="form-control" ng-model="stu.name" id="name" placeholder="请输入名称">
+                                        <label for="remark">备注</label>
+                                        <textarea class="form-control" rows="3" ng-model="remark" id="remark" placeholder="请输入备注"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">邮箱</label>
-                                        <input type="text" class="form-control" ng-model="stu.email" id="email" placeholder="请输入邮箱">
+                                        <label for="inputfile">文件输入（仅支持zip、rar、word、ppt、pdf、xls、xlsx）</label>
+                                        <input type="file" id="inputfile">
                                     </div>
-                                    <button type="submit" ng-click="addStu()" class="btn btn-default">提交</button>
+                                    <button type="submit" ng-click="addStuFile()" class="btn btn-default">提交</button>
                                     <div style="margin-top: 20px;" ng-show="adding>0" class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-success" role="progressbar"
                                              aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
@@ -179,15 +179,15 @@
                                         <thead>
                                             <tr>
                                                 <th>学号</th>
-                                                <th>姓名</th>
-                                                <th>邮箱</th>
+                                                <th>备注</th>
+                                                <th>文件名</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="stu in stus">
-                                                <td ng-bind="stu.id"></td>
-                                                <td ng-bind="stu.name"></td>
-                                                <td ng-bind="stu.email"></td>
+                                            <tr ng-repeat="stuFile in stuFiles">
+                                                <td ng-bind="stuFile.id"></td>
+                                                <td ng-bind="stuFile.remark"></td>
+                                                <td ng-bind="stuFile.fpath"></td>
                                             </tr>
                                         </tbody>
                                 </table>

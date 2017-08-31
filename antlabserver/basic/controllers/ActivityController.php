@@ -32,7 +32,8 @@ class ActivityController extends Controller
                     'list' => ['get'],
                     'man-list'=>['get'],
                     'detail'=>['get'],
-                    'man-detail'=>['get']
+                    'man-detail'=>['get'],
+                    'view'=>['get']
                 ],
             ],
         ];
@@ -65,6 +66,30 @@ class ActivityController extends Controller
         $msg=new DTO();
         $msg->data=['activitys'=>$activitys,'pageNo'=>$pageNo,'pageSize'=>$pageSize,'totalCount'=>$totalCount];
         return ['msg'=>$msg];
+    }
+
+    /**
+     * View 浏览量
+     * @param $id
+     * @return []
+     */
+    public function actionView($id){
+        $cache=Yii::$app->cache;
+        $k="act_".$id;
+        $v=$cache->get($k);
+        if($v>5){
+            $activity=Activity::find()->where(['id'=>$id])->one();
+            if($activity!=null){
+                $activity->view+=$v;
+                $activity->update();
+            }
+            $cache->set($k,1);
+        }else {
+            if(!$v)$v=1;
+            else $v++;
+            $cache->set($k,$v);
+        }
+        return "";
     }
 
     /**

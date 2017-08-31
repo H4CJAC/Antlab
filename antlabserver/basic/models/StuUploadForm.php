@@ -20,8 +20,8 @@ class StuUploadForm extends Model{
         $res=[];
         if ($this->validate()) {
             $file=$this->upFiles[0];
-            $res[0]='/uploads/'.$this->sid."_".$file->baseName."_".date("U").'.'.$file->extension;
-            $file->saveAs(dirname(__DIR__).$res[0]);
+            $res[0]=$this->sid."_".$file->baseName."_".date("U").'.'.$file->extension;
+            $file->saveAs(dirname(__DIR__).'/stuUploads/'.$res[0]);
             return $res;
         }else{
             return $res;
