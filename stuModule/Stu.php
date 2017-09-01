@@ -4,12 +4,12 @@ require './excelExt/PHPExcel.php';
 /**
 * 
 */
-class StuFile
+class Stu
 {
 
     public $id;
-    public $remark;
-    public $fpath;
+    public $name;
+    public $email;
 
     static public function listObj($xlsN,$typeName){
         if(!file_exists($xlsN))return [0,[]];

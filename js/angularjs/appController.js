@@ -497,6 +497,7 @@ app.controller("actcontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	}
 }]);
 
+/**
 app.controller("stuCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=6;
 
@@ -651,6 +652,7 @@ app.controller("stuFileCtrl", ['$scope', 'RQ', function($scope, RQ) {
 		getList();
 	}
 }]);
+**/
 
 var initMemPic=function(){
 	var mpics=$(".mempic");

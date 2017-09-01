@@ -1,28 +1,53 @@
 <?php 
 require './StuFile.php';
-if((!empty($_POST["sid"]))){
-    $allowedExts = array("zip", "rar", "ppt", "word","pdf","xls","xlsx");
-    $temp = explode(".", $_FILES["file"]["name"]);
-    $extension = array_pop($temp);
-    $extension=array_search($extension, $allowedExts);
-    if ($extension>-1)
-    {
-        if ($_FILES["file"]["error"] > 0)
+$xlsN="./excels/stuFile.csv";
+$msg=null;$smsg=null;
+if(isset($_POST["sid"])){
+    $sid=$_POST["sid"];
+    if(!empty($sid)&&is_numeric($sid)){
+        $allowedExts = array("zip", "rar", "ppt", "word","pdf","xls","xlsx");
+        $temp = explode(".", $_FILES["file"]["name"]);
+        $extension = array_pop($temp);
+        $extension=array_search($extension, $allowedExts);
+        if ($extension>-1)
         {
-            echo "错误：: " . $_FILES["file"]["error"] . "<br>";
+            if ($_FILES["file"]["error"] > 0)
+            {
+                $msg="错误：: " . $_FILES["file"]["error"] . "<br>";
+            }
+            else
+            {
+                $fn=$sid."_".implode("_", $temp)."_".date("U").".".$allowedExts[$extension];
+                if(move_uploaded_file($_FILES["file"]["tmp_name"], "./stuUploads/".$fn)){
+                    $stuFile=new StuFile();
+                    $stuFile->id="'".$sid;
+                    $stuFile->remark="'".$_POST["remark"];
+                    $stuFile->fpath=$fn;
+                    $mtx="stuFile";
+                    $ofp=StuFile::insert($stuFile,$xlsN,function($xlsS,$rtw){
+                            $cidx=0;$type=new StuFile();
+                            foreach($type as $k=>$v){
+                                if($k=="fpath")break;
+                                $cidx++;
+                            }
+                            return $xlsS->getCell(chr(ord('A')+$cidx).$rtw)->getValue();
+                        },$mtx);
+                    if($ofp!=null){
+                        try {
+                            unlink('./stuUploads/'.$ofp);
+                        } catch (Exception $e) {
+                        }
+                    }
+                }
+                $smsg="上传成功";
+            }
         }
         else
         {
-            $sid=$_POST["sid"];
-            $fn="stuUploads/" .$sid."_".implode("_", $temp)."_".date("U").".".$allowedExts[$extension];
-            move_uploaded_file($_FILES["file"]["tmp_name"], $fn);
-            $stuFile=new StuFile();
-            //??????????
+            $msg="非法文件格式";
         }
-    }
-    else
-    {
-        echo "非法的文件格式";
+    }else{
+        $msg="非法学号";
     }
 
 }
@@ -39,9 +64,13 @@ if((!empty($_POST["sid"]))){
 <body>
 <div class="container">
     <h1>文件上传</h1>
+    <?php
+    if($msg!=null)echo "<div class='alert alert-danger'>".$msg."</div>";
+    if($smsg!=null)echo "<div class='alert alert-success'>".$smsg."</div>"
+    ?>
     <form class="" role="form" action="." method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="id">学号</label>
+            <label for="id">学号*</label>
             <input type="text" class="form-control" name="sid" id="id" placeholder="请输入学号">
         </div>
         <div class="form-group">
@@ -49,17 +78,36 @@ if((!empty($_POST["sid"]))){
             <textarea class="form-control" rows="3" name="remark" id="remark" placeholder="请输入备注"></textarea>
         </div>
         <div class="form-group">
-            <label for="inputfile">文件输入（仅支持zip、rar、word、ppt、pdf、xls、xlsx）</label>
+            <label for="inputfile">文件输入*（仅支持zip、rar、word、ppt、pdf、xls、xlsx）</label>
             <input type="file" id="inputfile" name="file">
         </div>
         <button type="submit" class="btn btn-default">提交</button>
-        <div style="margin-top: 20px;" class="progress progress-striped active">
-            <div class="progress-bar progress-bar-success" role="progressbar"
-                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-                 style="width: 20%;">
-            </div>
-        </div>
     </form>
+    <table class="table table-striped">
+        <caption>已上传文件</caption>
+            <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>备注</th>
+                    <th>文件名</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $farr=StuFile::listObj($xlsN,"StuFile");
+                foreach($farr[1] as $key=>$val){
+                    $farr[1][$key]->id=substr($farr[1][$key]->id, 1);
+                    $farr[1][$key]->remark=substr($farr[1][$key]->remark, 1);
+                }
+                foreach ($farr[1] as $sf) {
+                    echo "<tr><td>".$sf->id
+                    ."</td><td>".$sf->remark
+                    ."</td><td>".$sf->fpath
+                    ."</td></tr>";
+                }
+                ?>
+            </tbody>
+    </table>
 </div>
     
 </body>

@@ -27,7 +27,6 @@
 		<link href="css/owl.carousel.css" rel="stylesheet" type="text/css">
 		<link href="css/responsive-calendar.css" rel="stylesheet" type="text/css">
 		<link href="css/chosen.css" rel="stylesheet" type="text/css">
-		<link href="jackbox/css/jackbox.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/cloud-zoom.css" rel="stylesheet" type="text/css" />
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 
@@ -158,7 +157,9 @@
 										
 										<ul class="slides">
 											
-											<li ng-repeat="pic in pics"><img ng-src="{{pic.url}}" alt=""></li>											
+											<li ng-repeat="pic in pics">
+												<div style="justify-content: center;display: flex;"><img style="max-height: 500px;width: auto;" ng-src="{{pic.url}}" alt=""></div>
+											</li>											
 										</ul>
 										
 									</div>
