@@ -25,6 +25,8 @@ app.controller("mainCtrl",['$scope','RQ',function($scope,RQ){
                     return "成员管理";
                 case "Intro":
                     return "简介管理";
+                case "Manager":
+                    return "管理员管理";
                 default: 
                     return "";
             }

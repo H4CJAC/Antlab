@@ -23,20 +23,30 @@ class MyFilter extends ActionFilter
     }
 
     private function veriPriv($action,$pvlg){
-        switch ($action->id) {
-            case 'man-upd':
-            case 'man-top':
-            case 'man-top-c':
-                if($pvlg>0)return true;
+        if($pvlg&1)return true;
+        switch ($action->controller->id) {
+            case 'activity':
+                if($pvlg&2)return true;
                 break;
-            case 'man-add':
-                if($pvlg>1)return true;
+            case 'anno':
+                if($pvlg&4)return true;
                 break;
-            case 'man-del':
-                if($pvlg>2)return true;
+            case 'research':
+                if($pvlg&8)return true;
+                break;
+            case 'paper':
+                if($pvlg&16)return true;
+                break;
+            case 'memtype':
+                if($pvlg&32)return true;
+                break;
+            case 'member':
+                if($pvlg&64)return true;
+                break;
+            case 'intro':
+                if($pvlg&128)return true;
                 break;
             default:
-                if($pvlg>-1)return true;
                 break;
         }
         $response=Yii::$app->response;

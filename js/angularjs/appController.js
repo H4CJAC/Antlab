@@ -113,6 +113,14 @@ app.controller("headerCtrl", ['$scope', 'RQ', function($scope, RQ) {
 
 }]);
 
+app.controller("footerCtrl", ['$scope', 'RQ', function($scope, RQ) {
+
+	$scope.init=function(){
+		$scope.year=new Date().getFullYear();
+	}
+
+}]);
+
 app.controller("introCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.cmi=1;
 
@@ -497,162 +505,6 @@ app.controller("actcontentCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	}
 }]);
 
-/**
-app.controller("stuCtrl", ['$scope', 'RQ', function($scope, RQ) {
-	$scope.cmi=6;
-
-	$scope.pageNo=1;
-	$scope.pageSize=15;
-	$scope.totalCount=0;
-	$scope.btns=[];
-	$scope.btnmaxnum=10;
-
-	$scope.jumpto=function(pn){
-		if (pn!=$scope.pageNo) {
-			$scope.pageNo=pn;
-			getList();
-		}
-	}
-
-	$scope.front=function(){
-		if ($scope.pageNo>1) {
-			$scope.jumpto($scope.pageNo-1);
-		}
-	}
-
-	$scope.back=function(){
-		if ($scope.pageNo<$scope.btns.length) {
-			$scope.jumpto($scope.pageNo+1);
-		}
-	}
-
-	var getList=function(){
-		$scope.adding=60;
-		RQ.get(RQ.host+"student/list",{
-			pageNo:$scope.pageNo,
-			pageSize:$scope.pageSize
-		},function(res){
-			res=res.msg;
-			if (res.code==0) {
-				$scope.adding=100;
-				$scope.stus=res.data.stus;
-				$scope.totalCount=res.data.totalCount;
-				$scope.btns=getBtnArr($scope.totalCount,$scope.btnmaxnum,$scope.pageNo,$scope.pageSize);
-				$scope.adding=0;
-			}else{
-				alert(res.info);
-			}
-		});
-	}
-
-	$scope.addStu=function(){
-		$scope.adding=20;
-		RQ.post(RQ.host+"student/add",$scope.stu,function(res){
-			res=res.msg;
-			if (res.code==0) {
-				$scope.adding=60;
-				getList();
-				alert("登记成功！");
-			}else{
-				alert(res.info);
-				$scope.adding=0;
-			}
-		});
-	}
-
-	$scope.init=function(){
-		$scope.adding=0;
-		$scope.stu={};
-		getList();
-	}
-}]);
-
-app.controller("stuFileCtrl", ['$scope', 'RQ', function($scope, RQ) {
-	$scope.cmi=6;
-
-	$scope.pageNo=1;
-	$scope.pageSize=15;
-	$scope.totalCount=0;
-	$scope.btns=[];
-	$scope.btnmaxnum=10;
-
-	$scope.jumpto=function(pn){
-		if (pn!=$scope.pageNo) {
-			$scope.pageNo=pn;
-			getList();
-		}
-	}
-
-	$scope.front=function(){
-		if ($scope.pageNo>1) {
-			$scope.jumpto($scope.pageNo-1);
-		}
-	}
-
-	$scope.back=function(){
-		if ($scope.pageNo<$scope.btns.length) {
-			$scope.jumpto($scope.pageNo+1);
-		}
-	}
-
-	var getList=function(){
-		$scope.adding=60;
-		RQ.get(RQ.host+"student/file-list",{
-			pageNo:$scope.pageNo,
-			pageSize:$scope.pageSize
-		},function(res){
-			res=res.msg;
-			if (res.code==0) {
-				$scope.adding=100;
-				$scope.stuFiles=res.data.stuFiles;
-				$scope.totalCount=res.data.totalCount;
-				$scope.btns=getBtnArr($scope.totalCount,$scope.btnmaxnum,$scope.pageNo,$scope.pageSize);
-				$scope.adding=0;
-			}else{
-				alert(res.info);
-			}
-		});
-	}
-
-	$scope.addStuFile=function(){
-		if(!$scope.sid>0){
-			alert("学号不可为空！");
-			return false;
-		}
-		$scope.adding=20;
-
-        var files=$("#inputfile")[0].files;
-        if(files!=undefined&&files.length>0){
-        	var fd=new FormData();
-        	fd.append("StuUploadForm[upFiles][]",files[0]);
-        	RQ.uploadfileWithParams(RQ.host+"student/upload",fd,{
-        		"sid":$scope.sid,
-        		"remark":$scope.remark
-        	},function(res){
-				res=res.msg;
-				if (res.code==0) {
-					$scope.adding=60;
-					getList();
-					alert("上传成功！");
-				}else{
-					alert(res.info);
-					$scope.adding=0;
-				}
-			});
-        }else{
-        	alert("文件不可为空！");
-        	$scope.adding=0;
-        }
-		
-	}
-
-	$scope.init=function(){
-		$scope.adding=0;
-		$scope.stu={};
-		getList();
-	}
-}]);
-**/
 
 var initMemPic=function(){
 	var mpics=$(".mempic");

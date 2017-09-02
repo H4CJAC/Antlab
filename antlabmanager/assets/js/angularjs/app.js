@@ -42,6 +42,12 @@ app.config(["$routeProvider",function($routeProvider){
 	}).when("/formIntro",{
 		templateUrl:"forms/intro.html",
 		controller:'formIntroCtrl'
+	}).when("/tableManagers",{
+		templateUrl:"tables/managers.html",
+		controller:'tableManagersCtrl'
+	}).when("/formManager/:id",{
+		templateUrl:"forms/manager.html",
+		controller:'formManagerCtrl'
 	}).otherwise({
 		template:'404',
 		controller:''

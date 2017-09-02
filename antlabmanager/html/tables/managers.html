@@ -13,12 +13,13 @@
                     <div class="col-xs-12">
                         <div class="dataTables_length" id="dynamic-table_filter">
                             <label>
-                                论文类型:<input aria-controls="dynamic-table" placeholder="全部" class="form-control input-sm" type="search" ng-model="SPname"/>
+                                管理员用户名:<input aria-controls="dynamic-table" placeholder="全部" class="form-control input-sm" type="search" ng-model="SPusername"/>
+                                管理员昵称:<input aria-controls="dynamic-table" placeholder="全部" class="form-control input-sm" type="search" ng-model="SPnickname"/>
                                 <button class="btn btn-xs btn-primary" ng-click="search()">搜索</button>
                             </label>
                             <label style="float: right; margin: 0.5% 0px 0px;">
-                                <a style="vertical-align: middle;" class="blue" href="#/formPaper/-1">
-                                    <i style="vertical-align: middle;" class="ace-icon fa fa-plus bigger-130"></i>添加论文
+                                <a style="vertical-align: middle;" class="blue" href="#/formManager/-1">
+                                    <i style="vertical-align: middle;" class="ace-icon fa fa-plus bigger-130"></i>添加管理员
                                 </a>
                             </label>
                         </div>
@@ -28,52 +29,40 @@
                     <thead>
                         <tr>
                             
-                            <th>论文是否展示</th>
-                            <th>论文浏览量</th>
-                            <th>论文类型</th>
-                            <th>论文发布者</th>
-                            <th>论文发布日期</th>
+                            <th>管理员用户名</th>
+                            <th>管理员昵称</th>
+                            <th>管理员权限值</th>
 
                             <th>操作</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="paper in papers">
+                        <tr ng-repeat="manager in managers">
 
                             <td>
                                 <div>
-                                    <p ng-bind="paper.isshow==1?'是':'否'"></p>
+                                    <p ng-bind="manager.username"></p>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    <p ng-bind="paper.view"></p>
+                                    <p ng-bind="manager.nickname"></p>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    <p ng-bind="paper.name"></p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <p ng-bind="paper.pubby"></p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <p ng-bind="paper.pubtime"></p>
+                                    <p ng-bind="manager.pvlg"></p>
                                 </div>
                             </td>
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    <a class="blue" href="#/formPaper/{{paper.id}}">
+                                    <a class="blue" href="#/formManager/{{manager.id}}">
                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         查询修改
                                     </a>
 
-                                    <a class="red" ng-click="del(paper,$index)" href="">
+                                    <a class="red" ng-click="del(manager,$index)" href="">
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         删除
                                     </a>
@@ -87,7 +76,7 @@
 
                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                             <li>
-                                                <a href="#/formPaper/{{paper.id}}" class="tooltip-info" data-rel="tooltip" title="查询修改">
+                                                <a href="#/formManager/{{manager.id}}" class="tooltip-info" data-rel="tooltip" title="查询修改">
                                                     <span class="blue">
                                                         <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                                     </span>
@@ -95,7 +84,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="" ng-click="del(paper,$index)" class="tooltip-error" data-rel="tooltip" title="删除">
+                                                <a href="" ng-click="del(manager,$index)" class="tooltip-error" data-rel="tooltip" title="删除">
                                                     <span class="red">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </span>

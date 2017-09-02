@@ -1,0 +1,78 @@
+
+<div class="row" ng-init="init()">
+    <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <form1 class="form-horizontal" role="form">
+            <!-- #section:elements.form -->
+
+
+            <!-- <th>管理员用户名</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 管理员用户名* </label>
+                
+                <div class="col-sm-4">
+                    <input type="text" id="form-field-1" placeholder="管理员用户名" class="col-xs-10 col-sm-5" ng-model='manager.username'/>
+                </div>
+
+            </div>
+
+            <!-- <th>管理员昵称</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 管理员昵称 </label>
+                
+                <div class="col-sm-4">
+                    <input type="text" id="form-field-1" placeholder="管理员昵称" class="col-xs-10 col-sm-5" ng-model='manager.nickname'/>
+                </div>
+
+            </div>
+
+            <!-- <th>管理员密码</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1" ng-bind="'管理员密码*'+(pwdchg?'（请输入明文）':'')">  </label>
+
+                <div class="col-sm-6">
+                    <input style="margin-right: 1px;" type="text" ng-disabled="!pwdchg" id="form-field-1" placeholder="请输入管理员密码。" class="col-xs-10 col-sm-5" ng-model='manager.password'/>
+                    <div class="btn-group-sm">
+                        <button ng-if="opwd!=undefined&&opwd!=null" ng-class="{'btn':true,'btn-info':!pwdchg,'btn-default':pwdchg}" type="button" ng-click="pwdchgBtn()" ng-bind="pwdchgMsg()"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <th>管理员权限</th> -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 管理员权限 </label>
+
+                <div class="col-sm-9">
+                    <div class="btn-group-sm">
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(1),'btn-info':veriPvlg(1)}" type="button" ng-click="chgPvlg(1)">所有权限（包括管理员管理）</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(2),'btn-info':veriPvlg(2)}" type="button" ng-click="chgPvlg(2)">活动管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(4),'btn-info':veriPvlg(4)}" type="button" ng-click="chgPvlg(4)">通知管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(8),'btn-info':veriPvlg(8)}" type="button" ng-click="chgPvlg(8)">研究成果管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(16),'btn-info':veriPvlg(16)}" type="button" ng-click="chgPvlg(16)">论文管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(32),'btn-info':veriPvlg(32)}" type="button" ng-click="chgPvlg(32)">成员类型管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(64),'btn-info':veriPvlg(64)}" type="button" ng-click="chgPvlg(64)">成员管理</button>
+                        <button ng-class="{'btn':true,'btn-default':!veriPvlg(128),'btn-info':veriPvlg(128)}" type="button" ng-click="chgPvlg(128)">简介管理</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="button" ng-click="submit()">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset" ng-click="goback()">
+                        <i class="ace-icon fa fa-arrow-left bigger-110"></i>
+                        返回
+                    </button>
+                </div>
+            </div>
+        </form1>
+
+        
+    </div><!-- /.col -->
+</div>

@@ -23,17 +23,7 @@ class MyPicFilter extends ActionFilter
     }
 
     private function veriPriv($action,$pvlg){
-        switch ($action->id) {
-            case 'man-upload':
-            case 'man-del':
-            case 'man-m-del':
-            case 'man-del-w-u':
-                if($pvlg>0)return true;
-                break;
-            default:
-                if($pvlg>-1)return true;
-                break;
-        }
+        if(($pvlg&1)||($pvlg&2)||($pvlg&4)||($pvlg&64))return true;
         $response=Yii::$app->response;
         $response->format=\yii\web\Response::FORMAT_JSON;
         $msg=new DTO();
