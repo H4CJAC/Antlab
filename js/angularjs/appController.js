@@ -359,6 +359,7 @@ app.controller("paperCtrl", ['$scope', 'RQ', function($scope, RQ) {
 	$scope.getDetail=function(id){
 		if(id<1){
 			$scope.paper={name:"全部"};
+			$scope.curpt=id;
 			return;
 		}
 		RQ.get(RQ.host+"paper/detail",{

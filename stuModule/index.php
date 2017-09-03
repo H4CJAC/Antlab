@@ -9,8 +9,9 @@ if(isset($_POST["id"])){
             $mtx="stu";
             $stu=new Stu();
             $stu->id="'".$id;
-            $stu->name=$name;
-            $stu->email=$_POST["email"];
+            $stu->name="'".$name;
+            $stu->remark="'".$_POST["remark"];
+            $stu->email="'".$_POST["email"];
             Stu::insert($stu,$xlsN,null,$mtx);
             $smsg="登记成功";
         }else $msg="姓名不能为空";
@@ -46,6 +47,10 @@ if(isset($_POST["id"])){
             <label for="email">邮箱</label>
             <input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱">
         </div>
+        <div class="form-group">
+            <label for="remark">备注</label>
+            <textarea class="form-control" rows="3" name="remark" id="remark" placeholder="请输入备注"></textarea>
+        </div>
         <button type="submit" class="btn btn-default">提交</button>
     </form>
     <table class="table table-striped">
@@ -55,6 +60,7 @@ if(isset($_POST["id"])){
                     <th>学号</th>
                     <th>姓名</th>
                     <th>邮箱</th>
+                    <th>备注</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,11 +68,15 @@ if(isset($_POST["id"])){
                 $sarr=Stu::listObj($xlsN,"Stu");
                 foreach($sarr[1] as $key=>$val){
                     $sarr[1][$key]->id=substr($sarr[1][$key]->id, 1);
+                    $sarr[1][$key]->name=substr($sarr[1][$key]->name, 1);
+                    $sarr[1][$key]->email=substr($sarr[1][$key]->email, 1);
+                    $sarr[1][$key]->remark=substr($sarr[1][$key]->remark, 1);
                 }
                 foreach ($sarr[1] as $stu) {
                     echo "<tr><td>".$stu->id
                     ."</td><td>".$stu->name
                     ."</td><td>".$stu->email
+                    ."</td><td>".$stu->remark
                     ."</td></tr>";
                 }
                 ?>

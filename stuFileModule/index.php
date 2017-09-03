@@ -18,6 +18,7 @@ if(isset($_POST["sid"])){
             else
             {
                 $fn=$sid."_".implode("_", $temp)."_".date("U").".".$allowedExts[$extension];
+                if(!file_exists("stuUploads"))mkdir("stuUploads");
                 if(move_uploaded_file($_FILES["file"]["tmp_name"], "./stuUploads/".$fn)){
                     $stuFile=new StuFile();
                     $stuFile->id="'".$sid;
@@ -32,11 +33,8 @@ if(isset($_POST["sid"])){
                             }
                             return $xlsS->getCell(chr(ord('A')+$cidx).$rtw)->getValue();
                         },$mtx);
-                    if($ofp!=null){
-                        try {
-                            unlink('./stuUploads/'.$ofp);
-                        } catch (Exception $e) {
-                        }
+                    if($ofp!=null&&file_exists('./stuUploads/'.$ofp)){
+                        unlink('./stuUploads/'.$ofp);
                     }
                 }
                 $smsg="上传成功";

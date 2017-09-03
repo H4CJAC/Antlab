@@ -9,6 +9,7 @@ class Stu
 
     public $id;
     public $name;
+    public $remark;
     public $email;
 
     static public function listObj($xlsN,$typeName){
@@ -33,6 +34,8 @@ class Stu
     }
 
     static private function initxls($xlsN,$type,$mtx){
+        if(!file_exists("runtime"))mkdir("runtime");
+        if(!file_exists("excels"))mkdir("excels");
         $xlsmtx="./runtime/".$mtx."_init_mtx";
         $fp=fopen($xlsmtx, "w+");
         if(flock($fp,LOCK_EX)){
