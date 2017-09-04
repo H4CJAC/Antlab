@@ -1,6 +1,6 @@
 <?php 
 require './StuFile.php';
-$xlsN="./excels/stuFile.xls";
+$xlsN="./excels/stuFile.csv";
 $msg=null;$smsg=null;
 if(isset($_POST["sid"])){
     $sid=$_POST["sid"];
@@ -21,8 +21,8 @@ if(isset($_POST["sid"])){
                 if(!file_exists("stuUploads"))mkdir("stuUploads");
                 if(move_uploaded_file($_FILES["file"]["tmp_name"], "./stuUploads/".$fn)){
                     $stuFile=new StuFile();
-                    $stuFile->id=$sid;
-                    $stuFile->remark=$_POST["remark"];
+                    $stuFile->id="'".$sid;
+                    $stuFile->remark="'".$_POST["remark"];
                     $stuFile->fpath=$fn;
                     $mtx="stuFile";
                     $ofp=StuFile::insert($stuFile,$xlsN,function($xlsS,$rtw){
@@ -94,8 +94,8 @@ if(isset($_POST["sid"])){
                 <?php
                 $farr=StuFile::listObj($xlsN,"StuFile");
                 foreach($farr[1] as $key=>$val){
-                    $farr[1][$key]->id=htmlspecialchars($farr[1][$key]->id,ENT_QUOTES);
-                    $farr[1][$key]->remark=htmlspecialchars($farr[1][$key]->remark,ENT_QUOTES);
+                    $farr[1][$key]->id=htmlspecialchars(substr($farr[1][$key]->id, 1),ENT_QUOTES);
+                    $farr[1][$key]->remark=htmlspecialchars(substr($farr[1][$key]->remark, 1),ENT_QUOTES);
                 }
                 foreach ($farr[1] as $sf) {
                     echo "<tr><td>".$sf->id

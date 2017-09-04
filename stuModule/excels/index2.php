@@ -1,6 +1,6 @@
 <?php 
 require './Stu.php';
-$xlsN="./excels/stu.xls";
+$xlsN="./excels/stu.csv";
 $msg=null;$smsg=null;
 
 //for old input info display
@@ -35,10 +35,10 @@ if(isset($_POST["id"])){
 			{			
 				$mtx="stu";
 				$stu=new Stu();
-                $stu->id=$id;
-                $stu->name=$name;
-                $stu->remark=$_POST["remark"];
-                $stu->email=$email;
+				$stu->id="'".$id;
+				$stu->name="'".$name;
+				$stu->remark="'".$_POST["remark"];
+				$stu->email="'".$email;
 				$res=Stu::insert($stu,$xlsN,null,$mtx);
 				if($res)
 				{
@@ -145,10 +145,10 @@ function checkEmail($email)
                 <?php
                 $sarr=Stu::listObj($xlsN,"Stu");
                 foreach($sarr[1] as $key=>$val){
-                    $sarr[1][$key]->id=htmlspecialchars($sarr[1][$key]->id,ENT_QUOTES);
-                    $sarr[1][$key]->name=htmlspecialchars($sarr[1][$key]->name,ENT_QUOTES);
-                    $sarr[1][$key]->email=htmlspecialchars($sarr[1][$key]->email,ENT_QUOTES);
-                    //$sarr[1][$key]->remark=htmlspecialchars($sarr[1][$key]->remark,ENT_QUOTES);
+                    $sarr[1][$key]->id=htmlspecialchars(substr($sarr[1][$key]->id, 1),ENT_QUOTES);
+                    $sarr[1][$key]->name=htmlspecialchars(substr($sarr[1][$key]->name, 1),ENT_QUOTES);
+                    $sarr[1][$key]->email=htmlspecialchars(substr($sarr[1][$key]->email, 1),ENT_QUOTES);
+                    //$sarr[1][$key]->remark=htmlspecialchars(substr($sarr[1][$key]->remark, 1),ENT_QUOTES);
                 }
                 foreach ($sarr[1] as $stu) {
                     echo "<tr><td>".$stu->id

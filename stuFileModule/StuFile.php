@@ -13,9 +13,8 @@ class StuFile
 
     static public function listObj($xlsN,$typeName){
         if(!file_exists($xlsN))return [0,[]];
-        $xlsR=new \PHPExcel_Reader_CSV();
-        $xls=$xlsR->setDelimiter(',')
-            ->load($xlsN);
+        $xlsR=new \PHPExcel_Reader_Excel2007();
+        $xls=$xlsR->load($xlsN);
         $xlsS=$xls->getActiveSheet(0);
         $hr=$xlsS->getHighestRow();
         $colidx=ord('A');
@@ -45,9 +44,8 @@ class StuFile
             $xls=new \PHPExcel();
             $colidx=ord('A');
             $xlsS=$xls->getActiveSheet(0);
-            foreach($type as $key=>$val)$xlsS->setCellValue(chr($colidx++)."1",$key);
-            $xlsW=new \PHPExcel_Writer_CSV($xls);
-            $xlsW->setDelimiter(',');
+            foreach($type as $key=>$val)$xlsS->setCellValueExplicit(chr($colidx++)."1",$key);
+            $xlsW=new \PHPExcel_Writer_Excel2007($xls);
             $xlsW->save($xlsN);
             fclose($fp);
         }
@@ -59,15 +57,11 @@ class StuFile
             self::initxls($xlsN,$obj,$mtx);
             usleep(5000);
         }
-        $sarr=array();
-        $n=0;
-        foreach($obj as $key=>$val)$sarr[$n++]=$val;
-        $xlsR=new \PHPExcel_Reader_CSV();
+        $xlsR=new \PHPExcel_Reader_Excel2007();
         $xlsmtx="./runtime/".$mtx."_add_mtx";
         $fp=fopen($xlsmtx, "w+");
         while(!flock($fp,LOCK_EX))usleep(5000);
-        $xls=$xlsR->setDelimiter(',')
-            ->load($xlsN);
+        $xls=$xlsR->load($xlsN);
         $xlsS=$xls->getActiveSheet(0);
         $hr=$xlsS->getHighestRow();
         $xlsS->setCellValue("A".($hr+2),'=MATCH("'.$obj->id.'",A2:A'.$hr.',0)');
@@ -78,9 +72,9 @@ class StuFile
             $rtw++;
             if($cbarr!=null)$res=call_user_func($cbarr,$xlsS,$rtw);
         }
-        $xlsS->fromArray($sarr,null,"A".$rtw);
-        $xlsW=new \PHPExcel_Writer_CSV($xls);
-        $xlsW->setDelimiter(',');
+        $colidx=ord('A');
+        foreach($obj as $key=>$val)$xlsS->setCellValueExplicit(chr($colidx++).$rtw,$val);
+        $xlsW=new \PHPExcel_Writer_Excel2007($xls);
         $xlsW->save($xlsN);
         fclose($fp);
         return $res;
